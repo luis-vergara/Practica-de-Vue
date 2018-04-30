@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+    <style>
+        /*transition*/
+        .aparecer-enter{
+            opacity: 0;
+        }
+        .aparecer-enter-active{
+            transition: opacity 1s;
+        }
+        .aparecer-leave-to{
+            opacity:0;
+        }
+        .aparecer-leave-active{
+            transition: opacity 1s;
+        }
+        /*animation*/
+        .bote-enter-active {
+            animation: bounce-in .5s;
+            }
+        .bote-leave-active {
+            animation: bounce-in .5s reverse;
+            }
+        @keyframes bote-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes bote-out {
+            0%{
+                transform: scale(1);
+            }
+            50%{
+                transform:scale(1.5);
+            }
+            100%{
+                transform:scale(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <button @click="mostrar = !mostrar">Mostrar/Ocultar</button>
+        <!--Transition-->
+        <transition name="aparecer" appear>
+            <h1 v-if="mostrar" v-text="mensajes.transicion"></h1>
+        </transition>
+        <!--Animation-->
+        <transition name="bote" appear>
+            <h1 v-if="mostrar" v-text="mensajes.animacion"></h1>
+        </transition>
+        <!--Animate.css-->
+        <transition name="animate.css" enter-active-class="animated zoomInRight" leave-active-class="animated zoomOutUp" appear>
+            <h1 v-if="mostrar" v-text="mensajes.animationCustom"></h1>
+        </transition>
+        <!--Transición entre diferentes elementos-->
+        <transition name="aparecer" mode="out-in">
+            <h1 v-if="mostrar" v-text="mensajes.entreElementos" key="aparecer"></h1>
+            <h1 v-else key="ocultar">No hay mensaje</h1>
+        </transition>
+        <pre>{{$data}}</pre>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
