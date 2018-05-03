@@ -10,14 +10,16 @@
     <main>
        <!-- <ul>
             <li v-for="tarea in tareasAjax" v-text="tarea.title"></li>
-        </ul>-->
+        
         <h1>Tareas Ajax</h1>
         <mis-tareas :tareas="tareasAjax"></mis-tareas>
 
         <hr>
         <h1>Tareas locales</h1>
         <mis-tareas :tareas="tareasLocales"></mis-tareas>
-        <pre>{{$data}}</pre>
+        <pre>{{$data}}</pre></ul>-->
+        <h1>Las Tareas</h1>
+        <mis-tareas></mis-tareas>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
