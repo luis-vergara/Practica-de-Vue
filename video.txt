@@ -1,1 +1,2 @@
-video 5.7
+video 6.1
+https://github.com/juanwmedia/vue-firebase
