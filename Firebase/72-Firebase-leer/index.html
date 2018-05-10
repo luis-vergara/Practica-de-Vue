@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>
+</head>
+<body>
+<div id="app">
+    <form @submit.prevent="enviarMensaje">
+        <textarea v-model="mensaje" cols="30" rows="10"></textarea>
+        <br>
+        <input type="submit" value="Enviar mensaje">
+    </form>
+    <hr>
+    <h1>Mensajes</h1>
+    <ul>
+        <li v-for="mensaje in mensajes">
+            {{ mensaje.mensaje}}
+            <small><i>({{ mensaje.username }})</i></small>
+        </li>
+    </ul>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.1.5/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC8ui4VsJ5ddNL-qkScRn_gjXK1takzj14",
+    authDomain: "curso-vue-firebase-94bd2.firebaseapp.com",
+    databaseURL: "https://curso-vue-firebase-94bd2.firebaseio.com",
+    projectId: "curso-vue-firebase-94bd2",
+    storageBucket: "curso-vue-firebase-94bd2.appspot.com",
+    messagingSenderId: "425142432640"
+  };
+  firebase.initializeApp(config);
+    const db = firebase.database();
+    // Vue stuff
+    new Vue({
+        el: '#app',
+        created() {
+            db.ref('/chats')
+                .on('value', snapshot => this.cargarMensajes(snapshot.val()))
+        },
+        data: {
+            mensaje: null,
+            username: 'LuisVergara',
+            mensajes: [],
+        },
+        methods: {
+            cargarMensajes(mensajes) {
+                this.mensajes = [];
+                for (let key in mensajes) {
+                    this.mensajes.push({
+                        mensaje: mensajes[key].mensaje,
+                        username: mensajes[key].username,
+                    });
+                }
+                this.mensajes.reverse();
+            },
+            enviarMensaje() {
+                db.ref('/chats')
+                    .push({
+                        mensaje: this.mensaje,
+                        username: this.username,
+                    })
+                    .then((data) => {
+                        this.mensaje = '';
+                        console.log(data.key);
+                    });
+            }
+        }
+    });
+</script>
+</body>
+</html>
