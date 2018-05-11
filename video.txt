@@ -1,2 +1,4 @@
 video 9.10
 https://github.com/juanwmedia/vue-firebase
+
+https://wmedia.teachable.com/courses/140226/lectures/2076649
